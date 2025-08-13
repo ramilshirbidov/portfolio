@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Имя Фамилия — Портфолио</title>
+  <meta name="description" content="Личное портфолио: проекты, навыки, опыт и контакты." />
+  <meta property="og:title" content="Имя Фамилия — Портфолио" />
+  <meta property="og:description" content="Проекты, навыки, опыт и контакты." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="" />
+  <style>
+    :root {
+      --bg: #0b0c10;
+      --card: #111319;
+      --text: #e8ecf1;
+      --muted: #a5b0c1;
+      --brand: #6aa5ff;
+      --brand-2: #9ef0ff;
+      --accent: #c6ff7a;
+      --border: #202534;
+      --shadow: 0 10px 30px rgba(0,0,0,0.35);
+      --radius: 18px;
+    }
+    [data-theme="light"] {
+      --bg: #f7f9fc;
+      --card: #ffffff;
+      --text: #0b1220;
+      --muted: #4a5568;
+      --brand: #2f6fff;
+      --brand-2: #00bcd4;
+      --accent: #2dd4bf;
+      --border: #e6eaf2;
+      --shadow: 0 10px 30px rgba(2,6,23,0.08);
+    }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    /* Layout */
+    .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+    header {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(6px);
+      background: color-mix(in oklab, var(--bg) 80%, transparent);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .brand {
+      display: flex; align-items: center; gap: 12px; font-weight: 700; letter-spacing: .2px;
+    }
+    .logo { width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, var(--brand), var(--brand-2)); box-shadow: var(--shadow); }
+    .nav a { color: var(--muted); text-decoration: none; font-weight: 600; margin: 0 8px; border-radius: 10px; padding: 8px 12px; }
+    .nav a:hover { background: color-mix(in oklab, var(--card) 74%, transparent); color: var(--text); }
+    .btn {
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color: #fff; border: none; padding: 10px 14px; border-radius: 12px; font-weight: 700; cursor: pointer; box-shadow: var(--shadow);
+    }
+    .btn.ghost { background: transparent; color: var(--text); border: 1px solid var(--border); box-shadow: none; }
+    main { padding-block: 24px 64px; }
+
+    /* Hero */
+    .hero { display: grid; grid-template-columns: 1.2fr .8fr; gap: 32px; align-items: center; margin-top: 24px; }
+    .hero-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow); }
+    .headline { font-size: clamp(28px, 4vw, 40px); line-height: 1.15; margin: 0 0 10px; }
+    .subhead { color: var(--muted); margin: 0 0 18px; font-size: 1.05rem; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .pill { display: inline-flex; align-items: center; gap: 8px; font-size: .9rem; background: color-mix(in oklab, var(--card) 92%, transparent); border: 1px solid var(--border); padding: 10px 12px; border-radius: 999px; color: var(--muted); }
+
+    /* Grid sections */
+    section { margin-top: 40px; }
+    .section-title { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .section-title h2 { margin: 0; font-size: 1.6rem; }
+    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); }
+    .span-4 { grid-column: span 4; }
+    .span-6 { grid-column: span 6; }
+    .span-8 { grid-column: span 8; }
+    .span-12 { grid-column: 1 / -1; }
+
+    /* Project card */
+    .project { display: grid; grid-template-rows: auto 1fr auto; gap: 10px; }
+    .project .thumb { border-radius: 12px; border: 1px solid var(--border); aspect-ratio: 16/9; background: linear-gradient(135deg, color-mix(in oklab, var(--brand) 75%, transparent), color-mix(in oklab, var(--accent) 75%, transparent)); }
+    .project h3 { margin: 2px 0 0; font-size: 1.1rem; }
+    .project p { margin: 0; color: var(--muted); font-size: .95rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .tag { font-size: .8rem; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--border); color: var(--muted); background: color-mix(in oklab, var(--card) 92%, transparent); }
+    .card-actions { display: flex; gap: 10px; margin-top: 12px; }
+    .card-actions a { text-decoration: none; font-weight: 700; border: 1px solid var(--border); padding: 8px 12px; border-radius: 10px; color: var(--text); }
+    .card-actions a:hover { background: color-mix(in oklab, var(--card) 80%, transparent); }
+
+    /* About & Skills */
+    .about p { margin-top: 8px; color: var(--muted); }
+    .skills { display: flex; flex-wrap: wrap; gap: 10px; }
+    .skill { padding: 10px 12px; border-radius: 12px; border: 1px solid var(--border); background: color-mix(in oklab, var(--card) 92%, transparent); font-weight: 600; }
+
+    /* Experience */
+    .timeline { display: grid; gap: 12px; }
+    .job { display: grid; gap: 6px; padding: 14px; border-radius: 14px; border: 1px solid var(--border); background: color-mix(in oklab, var(--card) 96%, transparent); }
+    .job .meta { color: var(--muted); font-size: .92rem; }
+
+    /* Contact */
+    .contact { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .contact .social { display: flex; gap: 10px; flex-wrap: wrap; }
+    .social a { text-decoration: none; border: 1px solid var(--border); padding: 10px 12px; border-radius: 10px; color: var(--text); }
+    .social a:hover { background: color-mix(in oklab, var(--card) 86%, transparent); }
+
+    footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); color: var(--muted); text-align: center; }
+
+    /* Responsive */
+    @media (max-width: 920px) {
+      .hero { grid-template-columns: 1fr; }
+      .span-6, .span-8, .span-4 { grid-column: span 12; }
+      .contact { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <span>Имя Фамилия</span>
+      </div>
+      <nav>
+        <a href="#projects">Проекты</a>
+        <a href="#about">Обо мне</a>
+        <a href="#experience">Опыт</a>
+        <a href="#contact">Контакты</a>
+        <button class="btn ghost" id="themeToggle" aria-label="Переключить тему">🌓</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Hero -->
+    <section class="hero" aria-label="Вступительный блок">
+      <div class="hero-card">
+        <p class="pill">Доступен к сотрудничеству · Фриланс / Full‑time</p>
+        <h1 class="headline">Привет! Я — <span style="background: linear-gradient(135deg, var(--brand), var(--accent)); -webkit-background-clip: text; color: transparent;">Имя Фамилия</span>, фронтенд‑разработчик.</h1>
+        <p class="subhead">Делаю быстрые и аккуратные веб‑приложения с фокусом на UX, доступность и производительность. Люблю чистую архитектуру и понятный код.</p>
+        <div class="hero-actions">
+          <a class="btn" href="#projects">Смотреть проекты</a>
+          <a class="btn ghost" href="mailto:you@email.com">Написать мне</a>
+        </div>
+      </div>
+      <div class="hero-card" aria-label="Информация кратко">
+        <h3 style="margin:0 0 8px">Коротко обо мне</h3>
+        <ul style="margin:0; padding-left: 18px; color: var(--muted);">
+          <li>5+ лет опыта в веб‑разработке</li>
+          <li>React / TypeScript / Node.js</li>
+          <li>Lighthouse 95+ / A11y / i18n</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">Открыт к предложениям</span>
+          <span class="tag">Удалённо</span>
+          <span class="tag">Русский · English</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+      <div class="section-title">
+        <h2>Проекты</h2>
+        <a href="#" class="btn ghost">Все репозитории</a>
+      </div>
+      <div class="grid">
+        <article class="card project span-6">
+          <div class="thumb" role="img" aria-label="Скриншот проекта 1"></div>
+          <div>
+            <h3>Проект №1 — Дашборд аналитики</h3>
+            <p>Интерактивный дашборд на React + D3, агрегация данных, фильтры и экспорт отчётов.</p>
+            <div class="tags">
+              <span class="tag">React</span>
+              <span class="tag">TypeScript</span>
+              <span class="tag">D3.js</span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <a href="#" target="_blank" rel="noopener">Демо</a>
+            <a href="#" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </article>
+
+        <article class="card project span-6">
+          <div class="thumb" role="img" aria-label="Скриншот проекта 2"></div>
+          <div>
+            <h3>Проект №2 — Интернет‑магазин</h3>
+            <p>SSR на Next.js, платежи, поиск, корзина, админ‑панель. Core Web Vitals в зелёной зоне.</p>
+            <div class="tags">
+              <span class="tag">Next.js</span>
+              <span class="tag">PostgreSQL</span>
+              <span class="tag">Stripe</span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <a href="#" target="_blank" rel="noopener">Демо</a>
+            <a href="#" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </article>
+
+        <article class="card project span-4">
+          <div class="thumb" role="img" aria-label="Скриншот проекта 3"></div>
+          <div>
+            <h3>Проект №3 — Портфолио‑генератор</h3>
+            <p>CLI‑утилита, которая собирает статический сайт из markdown‑резюме.</p>
+            <div class="tags">
+              <span class="tag">Node.js</span>
+              <span class="tag">CLI</span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <a href="#" target="_blank" rel="noopener">Демо</a>
+            <a href="#" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </article>
+        <article class="card project span-4">
+          <div class="thumb" role="img" aria-label="Скриншот проекта 4"></div>
+          <div>
+            <h3>Проект №4 — Чат‑бот</h3>
+            <p>Бот с RAG‑поиском и мультиязычной поддержкой, деплой в Docker.</p>
+            <div class="tags">
+              <span class="tag">Python</span>
+              <span class="tag">FastAPI</span>
+              <span class="tag">Docker</span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <a href="#" target="_blank" rel="noopener">Демо</a>
+            <a href="#" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </article>
+        <article class="card project span-4">
+          <div class="thumb" role="img" aria-label="Скриншот проекта 5"></div>
+          <div>
+            <h3>Проект №5 — Мобильное приложение</h3>
+            <p>Кросс‑платформенный клиент, офлайн‑кэш, синхронизация.</p>
+            <div class="tags">
+              <span class="tag">React Native</span>
+              <span class="tag">SQLite</span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <a href="#" target="_blank" rel="noopener">Демо</a>
+            <a href="#" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- About & Skills -->
+    <section id="about">
+      <div class="section-title">
+        <h2>Обо мне</h2>
+      </div>
+      <div class="grid">
+        <article class="card about span-8">
+          <h3 style="margin:0">Кто я</h3>
+          <p>Я занимаюсь веб‑разработкой, проектирую интерфейсы и архитектуру приложений. В работе ценю простоту решений, прозрачность процессов и командную культуру.</p>
+          <p>Люблю наставничество, пишу статьи и докладываю на митапах.</p>
+        </article>
+        <aside class="card span-4">
+          <h3 style="margin:0 0 8px">Навыки</h3>
+          <div class="skills">
+            <span class="skill">HTML5</span>
+            <span class="skill">CSS / Sass</span>
+            <span class="skill">JavaScript</span>
+            <span class="skill">TypeScript</span>
+            <span class="skill">React</span>
+            <span class="skill">Next.js</span>
+            <span class="skill">Node.js</span>
+            <span class="skill">REST / GraphQL</span>
+            <span class="skill">Jest / Playwright</span>
+            <span class="skill">Git / CI/CD</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience">
+      <div class="section-title">
+        <h2>Опыт</h2>
+      </div>
+      <div class="timeline">
+        <div class="job">
+          <strong>Senior Frontend Engineer · Компания А</strong>
+          <span class="meta">2023 — наст. время · удалённо</span>
+          <p>Вёл разработку дизайн‑системы, ускорил сборку на 35%, внедрил тестирование на e2e.</p>
+        </div>
+        <div class="job">
+          <strong>Frontend Engineer · Компания Б</strong>
+          <span class="meta">2020 — 2023 · офис</span>
+          <p>Разработал SPA с SSR, оптимизировал производительность до 95+ Lighthouse.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <div class="section-title">
+        <h2>Контакты</h2>
+      </div>
+      <div class="contact">
+        <div class="card">
+          <h3 style="margin:0 0 8px">Связаться</h3>
+          <p class="subhead">Открыт к сотрудничеству. Напишите мне — отвечу в ближайшее время.</p>
+          <div class="social">
+            <a href="mailto:you@email.com">Email</a>
+            <a href="https://t.me/yourusername" target="_blank" rel="noopener">Telegram</a>
+            <a href="https://github.com/yourusername" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://www.linkedin.com/in/yourusername" target="_blank" rel="noopener">LinkedIn</a>
+          </div>
+        </div>
+        <form class="card" onsubmit="sendMessage(event)">
+          <h3 style="margin:0 0 8px">Быстрое сообщение</h3>
+          <label>Имя<br/>
+            <input required name="name" placeholder="Как к вам обращаться" style="width:100%; padding:10px; border-radius:10px; border:1px solid var(--border); background:transparent; color:var(--text);" />
+          </label>
+          <label>Почта<br/>
+            <input type="email" required name="email" placeholder="name@example.com" style="width:100%; padding:10px; border-radius:10px; border:1px solid var(--border); background:transparent; color:var(--text);" />
+          </label>
+          <label>Сообщение<br/>
+            <textarea required name="message" rows="4" placeholder="Коротко опишите задачу" style="width:100%; padding:10px; border-radius:10px; border:1px solid var(--border); background:transparent; color:var(--text);"></textarea>
+          </label>
+          <button class="btn" type="submit">Отправить</button>
+          <p id="formStatus" class="subhead" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      © <span id="year"></span> Имя Фамилия · Сделано с любовью к UX
+    </footer>
+  </main>
+
+  <script>
+    // Темы
+    const themeToggle = document.getElementById('themeToggle');
+    const root = document.documentElement;
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+    themeToggle?.addEventListener('click', () => {
+      const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+
+    // Год в подвале
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Плавный скролл
+    document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href').slice(1);
+      const el = document.getElementById(id);
+      if (el) {
+        e.preventDefault();
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }));
+
+    // Форма: отправка через mailto как fallback
+    function sendMessage(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = new FormData(form);
+      const name = data.get('name');
+      const email = data.get('email');
+      const message = data.get('message');
+      const subject = encodeURIComponent('Сообщение с портфолио сайта');
+      const body = encodeURIComponent(`Имя: ${name}\nEmail: ${email}\n\n${message}`);
+      const link = `mailto:you@email.com?subject=${subject}&body=${body}`;
+      window.location.href = link;
+      const status = document.getElementById('formStatus');
+      status.textContent = 'Открылось почтовое приложение. Если не сработало — напишите на email.';
+      form.reset();
+    }
+  </script>
+</body>
+</html>
